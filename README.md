@@ -55,12 +55,7 @@ This project adheres to **SOLID** Object-Oriented Design principles:
 5.  Run the application (`Ctrl+R` or `Cmd+R`).
 6.  *Note: The system initializes with dummy data automatically upon startup so you can test features immediately.*
 
-## 📸 Screenshots
-*(Add screenshots of your Qt GUI here once the project is finished!)*
-*   *Login Screen*
-*   *Admin Dashboard*
-*   *Sorted Student Table*
-*   *Prerequisite Graph Results*
+
 
 ---
 *Developed for [Course Name/Code] at [University Name]*
