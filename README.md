@@ -37,24 +37,30 @@ This project adheres to **SOLID** Object-Oriented Design principles:
 *   **Open/Closed Principle:** Sorting logic utilizes the `ISortStrategy` interface. New sorting algorithms can be added without modifying the core `CollegeSystem` controller.
 *   **Dependency Inversion:** The Qt GUI (`MainWindow`) communicates with the underlying data strictly through the `CollegeSystem` API, decoupling the interface from the database implementation.
 
-## 🚀 Getting Started
-
-### Prerequisites
-*   **C++ Compiler:** GCC, Clang, or MSVC (C++17 or higher recommended).
-*   **Qt Framework:** Qt 5 or Qt 6 installed.
-*   **Qt Creator:** Recommended IDE for managing UI files (`.ui`) and the `.pro` or `CMakeLists.txt` build system.
-
-### Build and Run
-1.  Clone this repository.
-    ```bash
-    git clone [https://github.com/yourusername/CollegeManagementSystem.git](https://github.com/yourusername/CollegeManagementSystem.git)
-    ```
-2.  Open the project in **Qt Creator** by selecting the `CMakeLists.txt` or `.pro` file.
-3.  Configure the project for your local kit (Desktop).
-4.  Build the project (`Ctrl+B` or `Cmd+B`).
-5.  Run the application (`Ctrl+R` or `Cmd+R`).
-6.  *Note: The system initializes with dummy data automatically upon startup so you can test features immediately.*
-
+### Tasks:
+1. Defining Main classes (department, courses, students)
+Where:
+Department: include/Department.h (declarations) & src/Department.cpp (implementations)
+Course: include/Course.h (declarations) & src/Course.cpp (implementations)
+Student: include/Student.h & src/Student.cpp (Already done)
+Details: Define the attributes (e.g., course name, department capacity) and basic methods including constructors and getters/setters. (DONE)
+2. Merge sort for department by name
+Where: include/SortStrategies.h & src/CollegeSystem.cpp
+Details: You have a dedicated file named SortStrategies.h. It is best practice to implement your sorting algorithms (like Merge Sort) there as static functions or templates. You will then call this sort function in src/CollegeSystem.cpp where your array or vector of departments is actually stored.
+3. Selection sort for students by GPA
+Where: include/SortStrategies.h & src/CollegeSystem.cpp
+Details: Similar to Merge Sort, implement the general Selection Sort logic inside SortStrategies.h. Then, use it inside CollegeSystem.cpp to sort the system's list of Student objects.
+4. Bubble Sort courses by number
+Where: include/SortStrategies.h & src/CollegeSystem.cpp
+Details: Implement the Bubble Sort algorithm in SortStrategies.h and apply it to the list of Course objects inside CollegeSystem.cpp.
+5. Binary search for department by name or student by id
+Where: src/CollegeSystem.cpp
+Details: Because Binary Search relies on the collection being sorted first, implement the binarySearchDepartment(string name) and binarySearchStudent(int id) methods directly inside the CollegeSystem class. It manages the collections of data, making it the perfect place to query them.
+6. Graph + BFS + Data initialization
+Where:
+Graph + BFS: include/PrerequisiteGraph.h & src/PrerequisiteGraph.cpp
+Data Initialization: src/main.cpp or src/CollegeSystem.cpp
+Details: The graph data structure (using adjacency lists/matrices) and the Breadth-First Search (BFS) traversal logic to find course prerequisites should be written in PrerequisiteGraph. The actual mock data creation (creating objects and inserting them into the system) should be handled at the start of your program in main.cppmain.cppor inside a dedicated initialization method inCollegeSystem.
 
 
 ---
