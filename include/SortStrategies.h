@@ -3,7 +3,30 @@
 
 #include <vector>
 #include "Department.h"
+#include "Course.h"
 using namespace std;
+
+class BubbleSortStrategy {
+public:
+
+    void sortCourses(vector<Course>& courses) {
+
+        int n = courses.size();
+
+        for (int i = 0; i < n - 1; i++) {
+
+            for (int j = 0; j < n - i - 1; j++) {
+
+                if (courses[j].capacity > courses[j + 1].capacity) {
+
+                    Course temp = courses[j];
+                    courses[j] = courses[j + 1];
+                    courses[j + 1] = temp;
+                }
+            }
+        }
+    }
+};
 
 class MergeSortStrategy {
 public:

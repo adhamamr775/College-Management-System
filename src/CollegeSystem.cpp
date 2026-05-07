@@ -25,6 +25,11 @@ void CollegeSystem::addCourse(string code, string name, int capacity) {
     prereqGraph.addCourse(code);
 }
 
+void CollegeSystem::sortCoursesByCapacity() {
+    BubbleSortStrategy sorter;
+    sorter.sortCourses(courses);
+}
+
 void CollegeSystem::displayCourses() const {
     for (const Course& c : courses) {
         cout << c.code << " - " << c.name << " (Capacity: " << c.capacity << ")" << endl;

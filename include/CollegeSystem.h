@@ -22,6 +22,7 @@ public:
 
     // Course management
     void addCourse(string code, string name, int capacity);
+    void sortCoursesByCapacity();
     void displayCourses() const;
 
     // Prerequisite graph
