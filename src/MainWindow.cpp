@@ -8,7 +8,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QTimer>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), loggedInStudentId(-1) {
     // Initialize data
     system.initializeData();
 
@@ -21,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         return;
     }
 
+    setupMainUI();
+}
+
+void MainWindow::setupMainUI() {
     // Window setup
     setWindowTitle("College Management System");
     setMinimumSize(950, 650);
@@ -34,10 +38,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     mainLayout->setContentsMargins(16, 16, 16, 16);
     mainLayout->setSpacing(12);
 
-    // Header
+    // Header row with logout
+    QHBoxLayout *headerLayout = new QHBoxLayout();
     QLabel *headerLabel = new QLabel("🎓 College Management System");
     headerLabel->setObjectName("headerLabel");
-    mainLayout->addWidget(headerLabel);
+    headerLayout->addWidget(headerLabel);
+    headerLayout->addStretch();
+
+    QPushButton *logoutBtn = new QPushButton("🚪 Logout");
+    logoutBtn->setObjectName("warningBtn");
+    logoutBtn->setFixedHeight(36);
+    connect(logoutBtn, &QPushButton::clicked, this, &MainWindow::onLogout);
+    headerLayout->addWidget(logoutBtn);
+    mainLayout->addLayout(headerLayout);
 
     // Role indicator
     QLabel *roleLabel = new QLabel("Logged in as: " + currentRole);
@@ -48,8 +61,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     tabWidget = new QTabWidget();
     tabWidget->setObjectName("mainTabs");
 
+    if (currentRole == "Admin" || currentRole == "Instructor") {
+        tabWidget->addTab(createUsersTab(), "👥 Users");
+        tabWidget->addTab(createStudentsTab(), "🎓 Students");
+    } else if (currentRole == "Student") {
+        tabWidget->addTab(createMyCoursesTab(), "🎓 My Courses");
+        tabWidget->addTab(createAcademicHistoryTab(), "📜 Academic History");
+    }
     tabWidget->addTab(createDepartmentsTab(), "📁 Departments");
-    tabWidget->addTab(createStudentsTab(), "🎓 Students");
     tabWidget->addTab(createCoursesTab(), "📚 Courses");
     tabWidget->addTab(createPrerequisitesTab(), "🔗 Prerequisites");
 
@@ -57,7 +76,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     // Populate tables
     refreshDepartmentsTable();
-    refreshStudentsTable();
+    if (currentRole == "Admin" || currentRole == "Instructor") {
+        refreshUsersTable();
+        refreshStudentsTable();
+    } else if (currentRole == "Student") {
+        refreshMyCoursesTable();
+        refreshAcademicHistoryTable();
+    }
     refreshCoursesTable();
 }
 
@@ -111,23 +136,37 @@ bool MainWindow::showLoginDialog() {
         QString pass = passwordInput->text().trimmed();
 
         // Check against mock students
-        const auto& students = system.getStudents();
-        for (const auto& s : students) {
+        for (const auto& s : system.getStudents()) {
             if (QString::fromStdString(s.getUsername()) == user &&
                 s.checkPassword(pass.toStdString())) {
                 currentRole = "Student";
+                loggedInStudentId = s.id;
                 accepted = true;
                 dialog.accept();
                 return;
             }
         }
 
-        // Admin/Instructor hardcoded login
-        if (user == "admin" && pass == "admin") {
-            currentRole = "Instructor";
-            accepted = true;
-            dialog.accept();
-            return;
+        // Check against instructors
+        for (const auto& i : system.getInstructors()) {
+            if (QString::fromStdString(i.getUsername()) == user &&
+                i.checkPassword(pass.toStdString())) {
+                currentRole = "Instructor";
+                accepted = true;
+                dialog.accept();
+                return;
+            }
+        }
+
+        // Check against admins
+        for (const auto& a : system.getAdmins()) {
+            if (QString::fromStdString(a.getUsername()) == user &&
+                a.checkPassword(pass.toStdString())) {
+                currentRole = "Admin";
+                accepted = true;
+                dialog.accept();
+                return;
+            }
         }
 
         QMessageBox::warning(&dialog, "Login Failed", "Invalid username or password.");
@@ -182,6 +221,39 @@ QWidget* MainWindow::createDepartmentsTab() {
     deptTable->setAlternatingRowColors(true);
     deptTable->verticalHeader()->setVisible(false);
     layout->addWidget(deptTable);
+    return tab;
+}
+
+QWidget* MainWindow::createUsersTab() {
+    QWidget *tab = new QWidget();
+    QVBoxLayout *layout = new QVBoxLayout(tab);
+    layout->setSpacing(10);
+
+    // Controls
+    QHBoxLayout *controlsLayout = new QHBoxLayout();
+    
+    if (currentRole == "Admin") {
+        QPushButton *addUserBtn = new QPushButton("➕ Add User");
+        addUserBtn->setObjectName("actionBtn");
+        addUserBtn->setStyleSheet("background-color: #0984e3;");
+        connect(addUserBtn, &QPushButton::clicked, this, &MainWindow::onAddUser);
+        controlsLayout->addWidget(addUserBtn);
+    }
+    
+    controlsLayout->addStretch();
+    layout->addLayout(controlsLayout);
+
+    // Table
+    usersTable = new QTableWidget();
+    usersTable->setColumnCount(3);
+    usersTable->setHorizontalHeaderLabels({"Username", "Password", "Role"});
+    usersTable->horizontalHeader()->setStretchLastSection(true);
+    usersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    usersTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    usersTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    usersTable->setAlternatingRowColors(true);
+    usersTable->verticalHeader()->setVisible(false);
+    layout->addWidget(usersTable);
 
     return tab;
 }
@@ -194,10 +266,18 @@ QWidget* MainWindow::createStudentsTab() {
     // Controls
     QHBoxLayout *controlsLayout = new QHBoxLayout();
 
-    QPushButton *sortBtn = new QPushButton("⬆ Sort by GPA (Selection Sort)");
+    QPushButton *sortBtn = new QPushButton("⬆ Sort by GPA");
     sortBtn->setObjectName("actionBtn");
     connect(sortBtn, &QPushButton::clicked, this, &MainWindow::onSortStudents);
     controlsLayout->addWidget(sortBtn);
+
+    QPushButton *addUserBtn = new QPushButton("➕ Add Student");
+    addUserBtn->setObjectName("actionBtn");
+    addUserBtn->setStyleSheet("background-color: #0984e3;");
+    connect(addUserBtn, &QPushButton::clicked, this, &MainWindow::onAddUser);
+    if (currentRole == "Instructor") {
+        controlsLayout->addWidget(addUserBtn);
+    }
 
     controlsLayout->addStretch();
 
@@ -216,8 +296,8 @@ QWidget* MainWindow::createStudentsTab() {
 
     // Table
     studentTable = new QTableWidget();
-    studentTable->setColumnCount(5);
-    studentTable->setHorizontalHeaderLabels({"ID", "Name", "GPA", "Year", "Phone"});
+    studentTable->setColumnCount(6);
+    studentTable->setHorizontalHeaderLabels({"ID", "Name", "GPA", "Year", "Dept", "Phone"});
     studentTable->horizontalHeader()->setStretchLastSection(true);
     studentTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     studentTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -237,18 +317,36 @@ QWidget* MainWindow::createCoursesTab() {
     // Controls
     QHBoxLayout *controlsLayout = new QHBoxLayout();
 
-    QPushButton *sortBtn = new QPushButton("⬆ Sort by Capacity (Bubble Sort)");
+    QPushButton *sortBtn = new QPushButton("⬆ Sort by Capacity");
     sortBtn->setObjectName("actionBtn");
     connect(sortBtn, &QPushButton::clicked, this, &MainWindow::onSortCourses);
     controlsLayout->addWidget(sortBtn);
+
+    QPushButton *sortEnrollBtn = new QPushButton("⬆ Sort by Enrolled Count");
+    sortEnrollBtn->setObjectName("actionBtn");
+    connect(sortEnrollBtn, &QPushButton::clicked, this, &MainWindow::onSortCoursesByEnrollment);
+    controlsLayout->addWidget(sortEnrollBtn);
+
+    if (currentRole == "Admin" || currentRole == "Instructor") {
+        QPushButton *viewEnrolledBtn = new QPushButton("👁 View Enrolled Students");
+        viewEnrolledBtn->setObjectName("actionBtn");
+        connect(viewEnrolledBtn, &QPushButton::clicked, this, &MainWindow::onViewEnrolledStudents);
+        controlsLayout->addWidget(viewEnrolledBtn);
+    }
+
+    QPushButton *enrollBtn = new QPushButton("➕ Enroll in Course");
+    enrollBtn->setObjectName("actionBtn");
+    enrollBtn->setStyleSheet("background-color: #0984e3;");
+    connect(enrollBtn, &QPushButton::clicked, this, &MainWindow::onEnrollStudent);
+    controlsLayout->addWidget(enrollBtn);
 
     controlsLayout->addStretch();
     layout->addLayout(controlsLayout);
 
     // Table
     courseTable = new QTableWidget();
-    courseTable->setColumnCount(3);
-    courseTable->setHorizontalHeaderLabels({"Code", "Name", "Capacity"});
+    courseTable->setColumnCount(5);
+    courseTable->setHorizontalHeaderLabels({"Code", "Name", "Credits", "Capacity", "Enrolled"});
     courseTable->horizontalHeader()->setStretchLastSection(true);
     courseTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     courseTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -256,6 +354,62 @@ QWidget* MainWindow::createCoursesTab() {
     courseTable->setAlternatingRowColors(true);
     courseTable->verticalHeader()->setVisible(false);
     layout->addWidget(courseTable);
+
+    return tab;
+}
+
+QWidget* MainWindow::createMyCoursesTab() {
+    QWidget *tab = new QWidget();
+    QVBoxLayout *layout = new QVBoxLayout(tab);
+    layout->setSpacing(10);
+
+    QHBoxLayout *headerLayout = new QHBoxLayout();
+    
+    int sIdx = system.binarySearchStudent(loggedInStudentId);
+    float gpa = (sIdx != -1) ? system.getStudents()[sIdx].getGpa() : 0.0f;
+    
+    myCreditsLabel = new QLabel("Total Credits: 0 / " + QString::number(system.getMaxCreditHours(gpa)));
+    myCreditsLabel->setObjectName("roleLabel");
+    myCreditsLabel->setStyleSheet("font-size: 16px; font-weight: bold; color: #a29bfe;");
+    headerLayout->addWidget(myCreditsLabel);
+    headerLayout->addStretch();
+    
+    QPushButton *dropBtn = new QPushButton("➖ Drop Selected Course");
+    dropBtn->setObjectName("warningBtn");
+    connect(dropBtn, &QPushButton::clicked, this, &MainWindow::onDropCourse);
+    headerLayout->addWidget(dropBtn);
+    
+    layout->addLayout(headerLayout);
+
+    myCoursesTable = new QTableWidget();
+    myCoursesTable->setColumnCount(4);
+    myCoursesTable->setHorizontalHeaderLabels({"Code", "Name", "Credits", "Capacity"});
+    myCoursesTable->horizontalHeader()->setStretchLastSection(true);
+    myCoursesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    myCoursesTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    myCoursesTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    myCoursesTable->setAlternatingRowColors(true);
+    myCoursesTable->verticalHeader()->setVisible(false);
+    layout->addWidget(myCoursesTable);
+
+    return tab;
+}
+
+QWidget* MainWindow::createAcademicHistoryTab() {
+    QWidget *tab = new QWidget();
+    QVBoxLayout *layout = new QVBoxLayout(tab);
+    layout->setSpacing(10);
+
+    academicHistoryTable = new QTableWidget();
+    academicHistoryTable->setColumnCount(2);
+    academicHistoryTable->setHorizontalHeaderLabels({"Course Code", "Grade"});
+    academicHistoryTable->horizontalHeader()->setStretchLastSection(true);
+    academicHistoryTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    academicHistoryTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    academicHistoryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    academicHistoryTable->setAlternatingRowColors(true);
+    academicHistoryTable->verticalHeader()->setVisible(false);
+    layout->addWidget(academicHistoryTable);
 
     return tab;
 }
@@ -273,7 +427,7 @@ QWidget* MainWindow::createPrerequisitesTab() {
     prereqCourseInput->setFixedWidth(280);
     controlsLayout->addWidget(prereqCourseInput);
 
-    QPushButton *findBtn = new QPushButton("🔗 Find Prerequisites (BFS)");
+    QPushButton *findBtn = new QPushButton("🔗 View Course Prerequisites");
     findBtn->setObjectName("actionBtn");
     connect(findBtn, &QPushButton::clicked, this, &MainWindow::onFindPrerequisites);
     connect(prereqCourseInput, &QLineEdit::returnPressed, this, &MainWindow::onFindPrerequisites);
@@ -281,7 +435,7 @@ QWidget* MainWindow::createPrerequisitesTab() {
 
     controlsLayout->addStretch();
 
-    QPushButton *cycleBtn = new QPushButton("🔄 Check for Cycles (DFS)");
+    QPushButton *cycleBtn = new QPushButton("🔄 Validate Course Map");
     cycleBtn->setObjectName("warningBtn");
     connect(cycleBtn, &QPushButton::clicked, this, &MainWindow::onCheckCycles);
     controlsLayout->addWidget(cycleBtn);
@@ -299,6 +453,21 @@ QWidget* MainWindow::createPrerequisitesTab() {
 }
 
 // ==================== TABLE REFRESH ====================
+
+void MainWindow::refreshUsersTable() {
+    if (!usersTable) return;
+    
+    auto users = system.getAllUsers();
+    usersTable->setRowCount(users.size());
+
+    int row = 0;
+    for (const auto& u : users) {
+        usersTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(u.username)));
+        usersTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(u.password)));
+        usersTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(u.role)));
+        row++;
+    }
+}
 
 void MainWindow::refreshDepartmentsTable() {
     const auto& depts = system.getDepartments();
@@ -319,7 +488,8 @@ void MainWindow::refreshStudentsTable() {
         studentTable->setItem(i, 1, new QTableWidgetItem(QString::fromStdString(studs[i].name)));
         studentTable->setItem(i, 2, new QTableWidgetItem(QString::number(studs[i].gpa, 'f', 2)));
         studentTable->setItem(i, 3, new QTableWidgetItem(QString::number(studs[i].year)));
-        studentTable->setItem(i, 4, new QTableWidgetItem(QString::fromStdString(studs[i].phone)));
+        studentTable->setItem(i, 4, new QTableWidgetItem(QString::fromStdString(studs[i].getDepartmentCode())));
+        studentTable->setItem(i, 5, new QTableWidgetItem(QString::fromStdString(studs[i].phone)));
     }
 }
 
@@ -330,11 +500,65 @@ void MainWindow::refreshCoursesTable() {
     for (int i = 0; i < (int)crses.size(); i++) {
         courseTable->setItem(i, 0, new QTableWidgetItem(QString::fromStdString(crses[i].code)));
         courseTable->setItem(i, 1, new QTableWidgetItem(QString::fromStdString(crses[i].name)));
-        courseTable->setItem(i, 2, new QTableWidgetItem(QString::number(crses[i].capacity)));
+        courseTable->setItem(i, 2, new QTableWidgetItem(QString::number(crses[i].getCreditHours())));
+        courseTable->setItem(i, 3, new QTableWidgetItem(QString::number(crses[i].capacity)));
+        
+        QString enrolledText = QString::number(crses[i].getEnrolledCount()) + " / " + QString::number(crses[i].capacity);
+        courseTable->setItem(i, 4, new QTableWidgetItem(enrolledText));
+    }
+}
+
+void MainWindow::refreshMyCoursesTable() {
+    if (!myCoursesTable) return;
+    const auto& courses = system.getCourses();
+    
+    int count = 0;
+    int totalCredits = 0;
+    for (const auto& c : courses) {
+        if (c.isStudentEnrolled(loggedInStudentId)) {
+            count++;
+            totalCredits += c.getCreditHours();
+        }
+    }
+    
+    myCoursesTable->setRowCount(count);
+    int row = 0;
+    for (const auto& c : courses) {
+        if (c.isStudentEnrolled(loggedInStudentId)) {
+            myCoursesTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(c.getCode())));
+            myCoursesTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(c.getName())));
+            myCoursesTable->setItem(row, 2, new QTableWidgetItem(QString::number(c.getCreditHours())));
+            myCoursesTable->setItem(row, 3, new QTableWidgetItem(QString::number(c.getCapacity())));
+            row++;
+        }
+    }
+
+    int sIdx = system.binarySearchStudent(loggedInStudentId);
+    float gpa = (sIdx != -1) ? system.getStudents()[sIdx].getGpa() : 0.0f;
+    myCreditsLabel->setText("Total Credits: " + QString::number(totalCredits) + " / " + QString::number(system.getMaxCreditHours(gpa)));
+}
+
+void MainWindow::refreshAcademicHistoryTable() {
+    if (!academicHistoryTable) return;
+    
+    int sIdx = system.binarySearchStudent(loggedInStudentId);
+    if (sIdx == -1) return;
+    
+    const auto& history = system.getStudents()[sIdx].getCourseHistory();
+    academicHistoryTable->setRowCount(history.size());
+    
+    for (int i = 0; i < (int)history.size(); i++) {
+        academicHistoryTable->setItem(i, 0, new QTableWidgetItem(QString::fromStdString(history[i].courseCode)));
+        academicHistoryTable->setItem(i, 1, new QTableWidgetItem(QString::fromStdString(history[i].grade)));
     }
 }
 
 // ==================== SLOTS ====================
+
+void MainWindow::onSortCoursesByEnrollment() {
+    system.sortCoursesByEnrolledCount();
+    refreshCoursesTable();
+}
 
 void MainWindow::onSortDepartments() {
     system.sortDepartmentsByName();
@@ -349,13 +573,12 @@ void MainWindow::onSearchDepartment() {
     }
 
     int index = system.binarySearchDepartment(searchName.toStdString());
-    refreshDepartmentsTable(); // Refresh because binary search sorts internally
+    refreshDepartmentsTable(); 
 
     if (index >= 0) {
         deptTable->selectRow(index);
         deptTable->scrollToItem(deptTable->item(index, 0));
-        QMessageBox::information(this, "Search Result",
-            "✅ Department '" + searchName + "' found at index " + QString::number(index) + ".");
+        QMessageBox::information(this, "Search Result", "Department '" + searchName + "' found successfully!");
     } else {
         deptTable->clearSelection();
         QMessageBox::information(this, "Search Result",
@@ -383,13 +606,12 @@ void MainWindow::onSearchStudent() {
     }
 
     int index = system.binarySearchStudent(id);
-    refreshStudentsTable(); // Refresh because binary search sorts internally
+    refreshStudentsTable();
 
     if (index >= 0) {
         studentTable->selectRow(index);
         studentTable->scrollToItem(studentTable->item(index, 0));
-        QMessageBox::information(this, "Search Result",
-            "✅ Student with ID " + QString::number(id) + " found at index " + QString::number(index) + ".");
+        QMessageBox::information(this, "Search Result", "Student with ID " + QString::number(id) + " found successfully!");
     } else {
         studentTable->clearSelection();
         QMessageBox::information(this, "Search Result",
@@ -397,9 +619,277 @@ void MainWindow::onSearchStudent() {
     }
 }
 
+void MainWindow::onAddUser() {
+    QDialog dialog(this);
+    dialog.setWindowTitle("Add New User");
+    dialog.setFixedSize(380, 450);
+
+    QVBoxLayout layout(&dialog);
+    QFormLayout form(&dialog);
+
+    QComboBox *roleCombo = new QComboBox();
+    
+    // Only Admin can add other Admins/Instructors. Instructors can only add Students.
+    if (currentRole == "Admin") {
+        roleCombo->addItems({"Student", "Instructor", "Admin"});
+    } else {
+        roleCombo->addItems({"Student"});
+    }
+
+    QLineEdit *userInput = new QLineEdit();
+    QLineEdit *passInput = new QLineEdit();
+    QSpinBox *idInput = new QSpinBox();
+    idInput->setRange(1, 99999);
+    QLineEdit *nameInput = new QLineEdit();
+    QDoubleSpinBox *gpaInput = new QDoubleSpinBox();
+    gpaInput->setRange(0.0, 4.0);
+    gpaInput->setSingleStep(0.1);
+    QSpinBox *yearInput = new QSpinBox();
+    yearInput->setRange(1, 5);
+    
+    QComboBox *deptCombo = new QComboBox();
+    for (const auto& d : system.getDepartments()) {
+        deptCombo->addItem(QString::fromStdString(d.code));
+    }
+    
+    QLineEdit *phoneInput = new QLineEdit();
+
+    form.addRow("Role:", roleCombo);
+    form.addRow("Username:", userInput);
+    form.addRow("Password:", passInput);
+    
+    // Dynamic fields wrapper so we can show/hide them easily
+    QWidget *dynamicWidget = new QWidget();
+    QFormLayout *dynamicForm = new QFormLayout(dynamicWidget);
+    dynamicForm->setContentsMargins(0, 0, 0, 0);
+    
+    // Label/Field pairs for dynamic visibility
+    QLabel *idLabel = new QLabel("ID:");
+    dynamicForm->addRow(idLabel, idInput);
+    
+    QLabel *nameLabel = new QLabel("Full Name:");
+    dynamicForm->addRow(nameLabel, nameInput);
+    
+    QLabel *gpaLabel = new QLabel("GPA:");
+    dynamicForm->addRow(gpaLabel, gpaInput);
+    
+    QLabel *yearLabel = new QLabel("Year:");
+    dynamicForm->addRow(yearLabel, yearInput);
+    
+    QLabel *deptLabel = new QLabel("Department:");
+    dynamicForm->addRow(deptLabel, deptCombo);
+    
+    QLabel *phoneLabel = new QLabel("Phone:");
+    dynamicForm->addRow(phoneLabel, phoneInput);
+    
+    layout.addLayout(&form);
+    layout.addWidget(dynamicWidget);
+
+    auto updateFields = [&]() {
+        QString role = roleCombo->currentText();
+        
+        // Hide everything first
+        idLabel->hide(); idInput->hide();
+        nameLabel->hide(); nameInput->hide();
+        gpaLabel->hide(); gpaInput->hide();
+        yearLabel->hide(); yearInput->hide();
+        deptLabel->hide(); deptCombo->hide();
+        phoneLabel->hide(); phoneInput->hide();
+
+        if (role == "Student") {
+            idLabel->show(); idInput->show();
+            nameLabel->show(); nameInput->show();
+            gpaLabel->show(); gpaInput->show();
+            yearLabel->show(); yearInput->show();
+            deptLabel->show(); deptCombo->show();
+            phoneLabel->show(); phoneInput->show();
+        } else if (role == "Instructor") {
+            idLabel->show(); idInput->show();
+            nameLabel->show(); nameInput->show();
+            deptLabel->show(); deptCombo->show();
+        }
+    };
+    
+    connect(roleCombo, &QComboBox::currentTextChanged, updateFields);
+    updateFields(); // Initial call
+
+    QDialogButtonBox btns(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    connect(&btns, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(&btns, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    layout.addWidget(&btns);
+
+    if (dialog.exec() == QDialog::Accepted) {
+        if (userInput->text().isEmpty() || passInput->text().isEmpty()) {
+            QMessageBox::warning(this, "Error", "Username and Password are required.");
+            return;
+        }
+        
+        QString role = roleCombo->currentText();
+        
+        if (role == "Student") {
+            system.addStudent(userInput->text().toStdString(),
+                              passInput->text().toStdString(),
+                              idInput->value(),
+                              nameInput->text().toStdString(),
+                              gpaInput->value(),
+                              yearInput->value(),
+                              phoneInput->text().toStdString(),
+                              deptCombo->currentText().toStdString());
+            refreshStudentsTable();
+        } else if (role == "Instructor") {
+            system.addInstructor(userInput->text().toStdString(),
+                                 passInput->text().toStdString(),
+                                 idInput->value(),
+                                 nameInput->text().toStdString(),
+                                 deptCombo->currentText().toStdString());
+        } else if (role == "Admin") {
+            system.addAdmin(userInput->text().toStdString(),
+                            passInput->text().toStdString());
+        }
+        
+        refreshUsersTable();
+        QMessageBox::information(this, "Success", "User added successfully!");
+    }
+}
+
 void MainWindow::onSortCourses() {
     system.sortCoursesByCapacity();
     refreshCoursesTable();
+}
+
+void MainWindow::onEnrollStudent() {
+    QDialog dialog(this);
+    dialog.setWindowTitle("Enroll Student in Course");
+    dialog.setFixedSize(300, 200);
+
+    QVBoxLayout layout(&dialog);
+    QFormLayout form(&dialog);
+
+    QComboBox *courseCombo = new QComboBox();
+    for (const auto& c : system.getCourses()) {
+        courseCombo->addItem(QString::fromStdString(c.getCode()));
+    }
+
+    QSpinBox *studentIdInput = new QSpinBox();
+    studentIdInput->setRange(1, 99999);
+    
+    // If logged in as student, pre-fill and disable the ID input
+    if (currentRole == "Student" && loggedInStudentId != -1) {
+        studentIdInput->setValue(loggedInStudentId);
+        studentIdInput->setEnabled(false);
+    }
+
+    form.addRow("Course:", courseCombo);
+    form.addRow("Student ID:", studentIdInput);
+    layout.addLayout(&form);
+
+    QDialogButtonBox btns(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    connect(&btns, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(&btns, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    layout.addWidget(&btns);
+
+    if (dialog.exec() == QDialog::Accepted) {
+        string courseCode = courseCombo->currentText().toStdString();
+        int studentId = studentIdInput->value();
+
+        string result = system.enrollStudentInCourse(studentId, courseCode);
+        if (result == "OK") {
+            refreshCoursesTable();
+            if (currentRole == "Student") {
+                refreshMyCoursesTable();
+            }
+            QMessageBox::information(this, "Success", "Student enrolled successfully!");
+        } else {
+            QMessageBox::warning(this, "Enrollment Failed", QString::fromStdString(result));
+        }
+    }
+}
+
+void MainWindow::onViewEnrolledStudents() {
+    QList<QTableWidgetItem*> selectedItems = courseTable->selectedItems();
+    if (selectedItems.isEmpty()) {
+        QMessageBox::warning(this, "Select Course", "Please select a course to view its students.");
+        return;
+    }
+    
+    int row = selectedItems.first()->row();
+    QString courseCode = courseTable->item(row, 0)->text();
+    
+    const Course* selectedCourse = nullptr;
+    for (const auto& c : system.getCourses()) {
+        if (c.getCode() == courseCode.toStdString()) {
+            selectedCourse = &c;
+            break;
+        }
+    }
+    
+    if (!selectedCourse) return;
+    
+    QDialog dialog(this);
+    dialog.setWindowTitle("Enrolled Students - " + courseCode);
+    dialog.setFixedSize(450, 350);
+    QVBoxLayout layout(&dialog);
+    
+    QLabel *headerLabel = new QLabel("Students in " + QString::fromStdString(selectedCourse->getName()));
+    headerLabel->setObjectName("roleLabel");
+    headerLabel->setStyleSheet("font-size: 16px; font-weight: bold; margin-bottom: 10px; color: #a29bfe;");
+    layout.addWidget(headerLabel);
+    
+    QTableWidget *table = new QTableWidget();
+    table->setColumnCount(3);
+    table->setHorizontalHeaderLabels({"ID", "Name", "Department"});
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    table->setAlternatingRowColors(true);
+    table->verticalHeader()->setVisible(false);
+    
+    const auto& enrolledIds = selectedCourse->getEnrolledStudents();
+    table->setRowCount(enrolledIds.size());
+    
+    int tableRow = 0;
+    for (int studentId : enrolledIds) {
+        int idx = system.binarySearchStudent(studentId);
+        if (idx != -1) {
+            const auto& s = system.getStudents()[idx];
+            table->setItem(tableRow, 0, new QTableWidgetItem(QString::number(s.getId())));
+            table->setItem(tableRow, 1, new QTableWidgetItem(QString::fromStdString(s.getName())));
+            table->setItem(tableRow, 2, new QTableWidgetItem(QString::fromStdString(s.getDepartmentCode())));
+            tableRow++;
+        }
+    }
+    
+    layout.addWidget(table);
+    QDialogButtonBox btns(QDialogButtonBox::Ok);
+    connect(&btns, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    layout.addWidget(&btns);
+    
+    dialog.exec();
+}
+
+void MainWindow::onDropCourse() {
+    QList<QTableWidgetItem*> selectedItems = myCoursesTable->selectedItems();
+    if (selectedItems.isEmpty()) {
+        QMessageBox::warning(this, "Select Course", "Please select a course to drop.");
+        return;
+    }
+    
+    int row = selectedItems.first()->row();
+    QString courseCode = myCoursesTable->item(row, 0)->text();
+    
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Drop Course", "Are you sure you want to drop " + courseCode + "?",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        string result = system.dropStudentFromCourse(loggedInStudentId, courseCode.toStdString());
+        if (result == "OK") {
+            refreshCoursesTable();
+            refreshMyCoursesTable();
+            QMessageBox::information(this, "Success", "Course dropped successfully!");
+        } else {
+            QMessageBox::warning(this, "Drop Failed", QString::fromStdString(result));
+        }
+    }
 }
 
 void MainWindow::onFindPrerequisites() {
@@ -410,9 +900,9 @@ void MainWindow::onFindPrerequisites() {
     }
 
     vector<string> prereqs = system.getPrerequisitesBFS(courseCode.toStdString());
-
-    QString result;
-    result += "<h3>Prerequisites for " + courseCode + " (BFS Traversal)</h3>";
+    
+    QString result = "<div style='font-size: 14px;'>";
+    result += "<h3>Prerequisites for " + courseCode + "</h3>";
 
     if (prereqs.empty()) {
         result += "<p style='color: #888;'>No prerequisites found for this course.</p>";
@@ -442,6 +932,27 @@ void MainWindow::onCheckCycles() {
     }
 
     prereqResultText->setHtml(result);
+}
+
+void MainWindow::onLogout() {
+    // Clear the central widget
+    QWidget *centralWidget = this->centralWidget();
+    if (centralWidget) {
+        centralWidget->deleteLater();
+    }
+    
+    // Reset state
+    currentRole = "";
+    loggedInStudentId = -1;
+    
+    // Show login dialog again
+    if (!showLoginDialog()) {
+        QTimer::singleShot(0, qApp, &QApplication::quit);
+        return;
+    }
+    
+    // Rebuild UI for the new role
+    setupMainUI();
 }
 
 // ==================== STYLESHEET ====================
@@ -567,10 +1078,12 @@ void MainWindow::applyStyleSheet() {
             border-radius: 6px;
             selection-background-color: #6c5ce7;
             selection-color: #ffffff;
+            color: #ffffff;
         }
 
         QTableWidget::item {
             padding: 6px 10px;
+            color: #ffffff;
         }
 
         QHeaderView::section {
@@ -641,7 +1154,7 @@ void MainWindow::applyStyleSheet() {
         }
 
         /* ---- Input Fields ---- */
-        QLineEdit {
+        QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox {
             background-color: #2d2e4a;
             border: 1px solid #4a4b6a;
             border-radius: 6px;
@@ -649,8 +1162,14 @@ void MainWindow::applyStyleSheet() {
             color: #ffffff;
             font-size: 13px;
         }
+        
+        QComboBox QAbstractItemView {
+            background-color: #2d2e4a;
+            color: #ffffff;
+            selection-background-color: #6c5ce7;
+        }
 
-        QLineEdit:focus {
+        QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus {
             border-color: #6c5ce7;
         }
 

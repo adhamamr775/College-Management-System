@@ -395,6 +395,8 @@ CMakeFiles/cms_gui.dir/cms_gui_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/15/bits/basic_ios.tcc \
  /usr/include/c++/15/bits/ostream.tcc /usr/include/c++/15/istream \
  /usr/include/c++/15/bits/istream.tcc \
+ /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/cms_gui_autogen/6YEA5652QU/../../../include/../include/Instructor.h \
+ /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/cms_gui_autogen/6YEA5652QU/../../../include/../include/Admin.h \
  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/cms_gui_autogen/6YEA5652QU/../../../include/../include/SortStrategies.h \
  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/cms_gui_autogen/6YEA5652QU/../../../include/../include/PrerequisiteGraph.h \
  /usr/include/qt6/QtCore/qtmochelpers.h \

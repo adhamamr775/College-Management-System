@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "cms_console_autogen"
   "CMakeFiles/cms_console.dir/cms_console_autogen/mocs_compilation.cpp.o"
   "CMakeFiles/cms_console.dir/cms_console_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/cms_console.dir/src/Admin.cpp.o"
+  "CMakeFiles/cms_console.dir/src/Admin.cpp.o.d"
   "CMakeFiles/cms_console.dir/src/CollegeSystem.cpp.o"
   "CMakeFiles/cms_console.dir/src/CollegeSystem.cpp.o.d"
   "CMakeFiles/cms_console.dir/src/Course.cpp.o"

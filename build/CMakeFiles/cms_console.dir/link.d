@@ -7,8 +7,9 @@ cms_console: \
   CMakeFiles/cms_console.dir/src/CollegeSystem.cpp.o \
   CMakeFiles/cms_console.dir/src/Department.cpp.o \
   CMakeFiles/cms_console.dir/src/Course.cpp.o \
-  CMakeFiles/cms_console.dir/src/Student.cpp.o \
   CMakeFiles/cms_console.dir/src/User.cpp.o \
+  CMakeFiles/cms_console.dir/src/Admin.cpp.o \
+  CMakeFiles/cms_console.dir/src/Student.cpp.o \
   CMakeFiles/cms_console.dir/src/Instructor.cpp.o \
   CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o \
   /usr/lib/gcc/x86_64-redhat-linux/15/libstdc++.so \
@@ -55,9 +56,11 @@ CMakeFiles/cms_console.dir/src/Department.cpp.o:
 
 CMakeFiles/cms_console.dir/src/Course.cpp.o:
 
-CMakeFiles/cms_console.dir/src/Student.cpp.o:
-
 CMakeFiles/cms_console.dir/src/User.cpp.o:
+
+CMakeFiles/cms_console.dir/src/Admin.cpp.o:
+
+CMakeFiles/cms_console.dir/src/Student.cpp.o:
 
 CMakeFiles/cms_console.dir/src/Instructor.cpp.o:
 

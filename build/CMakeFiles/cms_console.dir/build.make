@@ -148,24 +148,10 @@ CMakeFiles/cms_console.dir/src/Course.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cms_console.dir/src/Course.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Course.cpp -o CMakeFiles/cms_console.dir/src/Course.cpp.s
 
-CMakeFiles/cms_console.dir/src/Student.cpp.o: CMakeFiles/cms_console.dir/flags.make
-CMakeFiles/cms_console.dir/src/Student.cpp.o: /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Student.cpp
-CMakeFiles/cms_console.dir/src/Student.cpp.o: CMakeFiles/cms_console.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cms_console.dir/src/Student.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cms_console.dir/src/Student.cpp.o -MF CMakeFiles/cms_console.dir/src/Student.cpp.o.d -o CMakeFiles/cms_console.dir/src/Student.cpp.o -c /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Student.cpp
-
-CMakeFiles/cms_console.dir/src/Student.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cms_console.dir/src/Student.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Student.cpp > CMakeFiles/cms_console.dir/src/Student.cpp.i
-
-CMakeFiles/cms_console.dir/src/Student.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cms_console.dir/src/Student.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Student.cpp -o CMakeFiles/cms_console.dir/src/Student.cpp.s
-
 CMakeFiles/cms_console.dir/src/User.cpp.o: CMakeFiles/cms_console.dir/flags.make
 CMakeFiles/cms_console.dir/src/User.cpp.o: /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/User.cpp
 CMakeFiles/cms_console.dir/src/User.cpp.o: CMakeFiles/cms_console.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cms_console.dir/src/User.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cms_console.dir/src/User.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cms_console.dir/src/User.cpp.o -MF CMakeFiles/cms_console.dir/src/User.cpp.o.d -o CMakeFiles/cms_console.dir/src/User.cpp.o -c /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/User.cpp
 
 CMakeFiles/cms_console.dir/src/User.cpp.i: cmake_force
@@ -176,10 +162,38 @@ CMakeFiles/cms_console.dir/src/User.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cms_console.dir/src/User.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/User.cpp -o CMakeFiles/cms_console.dir/src/User.cpp.s
 
+CMakeFiles/cms_console.dir/src/Admin.cpp.o: CMakeFiles/cms_console.dir/flags.make
+CMakeFiles/cms_console.dir/src/Admin.cpp.o: /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Admin.cpp
+CMakeFiles/cms_console.dir/src/Admin.cpp.o: CMakeFiles/cms_console.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cms_console.dir/src/Admin.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cms_console.dir/src/Admin.cpp.o -MF CMakeFiles/cms_console.dir/src/Admin.cpp.o.d -o CMakeFiles/cms_console.dir/src/Admin.cpp.o -c /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Admin.cpp
+
+CMakeFiles/cms_console.dir/src/Admin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cms_console.dir/src/Admin.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Admin.cpp > CMakeFiles/cms_console.dir/src/Admin.cpp.i
+
+CMakeFiles/cms_console.dir/src/Admin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cms_console.dir/src/Admin.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Admin.cpp -o CMakeFiles/cms_console.dir/src/Admin.cpp.s
+
+CMakeFiles/cms_console.dir/src/Student.cpp.o: CMakeFiles/cms_console.dir/flags.make
+CMakeFiles/cms_console.dir/src/Student.cpp.o: /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Student.cpp
+CMakeFiles/cms_console.dir/src/Student.cpp.o: CMakeFiles/cms_console.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cms_console.dir/src/Student.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cms_console.dir/src/Student.cpp.o -MF CMakeFiles/cms_console.dir/src/Student.cpp.o.d -o CMakeFiles/cms_console.dir/src/Student.cpp.o -c /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Student.cpp
+
+CMakeFiles/cms_console.dir/src/Student.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cms_console.dir/src/Student.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Student.cpp > CMakeFiles/cms_console.dir/src/Student.cpp.i
+
+CMakeFiles/cms_console.dir/src/Student.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cms_console.dir/src/Student.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Student.cpp -o CMakeFiles/cms_console.dir/src/Student.cpp.s
+
 CMakeFiles/cms_console.dir/src/Instructor.cpp.o: CMakeFiles/cms_console.dir/flags.make
 CMakeFiles/cms_console.dir/src/Instructor.cpp.o: /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Instructor.cpp
 CMakeFiles/cms_console.dir/src/Instructor.cpp.o: CMakeFiles/cms_console.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cms_console.dir/src/Instructor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/cms_console.dir/src/Instructor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cms_console.dir/src/Instructor.cpp.o -MF CMakeFiles/cms_console.dir/src/Instructor.cpp.o.d -o CMakeFiles/cms_console.dir/src/Instructor.cpp.o -c /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Instructor.cpp
 
 CMakeFiles/cms_console.dir/src/Instructor.cpp.i: cmake_force
@@ -193,7 +207,7 @@ CMakeFiles/cms_console.dir/src/Instructor.cpp.s: cmake_force
 CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o: CMakeFiles/cms_console.dir/flags.make
 CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o: /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/PrerequisiteGraph.cpp
 CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o: CMakeFiles/cms_console.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o -MF CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o.d -o CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o -c /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/PrerequisiteGraph.cpp
 
 CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.i: cmake_force
@@ -211,8 +225,9 @@ cms_console_OBJECTS = \
 "CMakeFiles/cms_console.dir/src/CollegeSystem.cpp.o" \
 "CMakeFiles/cms_console.dir/src/Department.cpp.o" \
 "CMakeFiles/cms_console.dir/src/Course.cpp.o" \
-"CMakeFiles/cms_console.dir/src/Student.cpp.o" \
 "CMakeFiles/cms_console.dir/src/User.cpp.o" \
+"CMakeFiles/cms_console.dir/src/Admin.cpp.o" \
+"CMakeFiles/cms_console.dir/src/Student.cpp.o" \
 "CMakeFiles/cms_console.dir/src/Instructor.cpp.o" \
 "CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o"
 
@@ -224,14 +239,15 @@ cms_console: CMakeFiles/cms_console.dir/src/main.cpp.o
 cms_console: CMakeFiles/cms_console.dir/src/CollegeSystem.cpp.o
 cms_console: CMakeFiles/cms_console.dir/src/Department.cpp.o
 cms_console: CMakeFiles/cms_console.dir/src/Course.cpp.o
-cms_console: CMakeFiles/cms_console.dir/src/Student.cpp.o
 cms_console: CMakeFiles/cms_console.dir/src/User.cpp.o
+cms_console: CMakeFiles/cms_console.dir/src/Admin.cpp.o
+cms_console: CMakeFiles/cms_console.dir/src/Student.cpp.o
 cms_console: CMakeFiles/cms_console.dir/src/Instructor.cpp.o
 cms_console: CMakeFiles/cms_console.dir/src/PrerequisiteGraph.cpp.o
 cms_console: CMakeFiles/cms_console.dir/build.make
 cms_console: CMakeFiles/cms_console.dir/compiler_depend.ts
 cms_console: CMakeFiles/cms_console.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable cms_console"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable cms_console"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cms_console.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

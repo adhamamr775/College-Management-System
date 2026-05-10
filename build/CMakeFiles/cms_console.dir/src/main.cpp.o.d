@@ -144,6 +144,8 @@ CMakeFiles/cms_console.dir/src/main.cpp.o: \
  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/Course.h \
  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/Student.h \
  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/User.h \
+ /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/Instructor.h \
+ /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/Admin.h \
  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/SortStrategies.h \
  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/PrerequisiteGraph.h \
  /usr/include/c++/15/unordered_map \

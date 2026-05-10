@@ -45,9 +45,13 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "onSearchDepartment",
         "onSortStudents",
         "onSearchStudent",
+        "onAddUser",
         "onSortCourses",
+        "onSortCoursesByEnrollment",
+        "onEnrollStudent",
         "onFindPrerequisites",
-        "onCheckCycles"
+        "onCheckCycles",
+        "onLogout"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -59,12 +63,20 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onSearchStudent'
         QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onSortCourses'
+        // Slot 'onAddUser'
         QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onFindPrerequisites'
+        // Slot 'onSortCourses'
         QtMocHelpers::SlotData<void()>(7, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onCheckCycles'
+        // Slot 'onSortCoursesByEnrollment'
         QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onEnrollStudent'
+        QtMocHelpers::SlotData<void()>(9, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onFindPrerequisites'
+        QtMocHelpers::SlotData<void()>(10, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onCheckCycles'
+        QtMocHelpers::SlotData<void()>(11, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onLogout'
+        QtMocHelpers::SlotData<void()>(12, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -92,9 +104,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->onSearchDepartment(); break;
         case 2: _t->onSortStudents(); break;
         case 3: _t->onSearchStudent(); break;
-        case 4: _t->onSortCourses(); break;
-        case 5: _t->onFindPrerequisites(); break;
-        case 6: _t->onCheckCycles(); break;
+        case 4: _t->onAddUser(); break;
+        case 5: _t->onSortCourses(); break;
+        case 6: _t->onSortCoursesByEnrollment(); break;
+        case 7: _t->onEnrollStudent(); break;
+        case 8: _t->onFindPrerequisites(); break;
+        case 9: _t->onCheckCycles(); break;
+        case 10: _t->onLogout(); break;
         default: ;
         }
     }
@@ -120,14 +136,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 11;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 11)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 11;
     }
     return _id;
 }

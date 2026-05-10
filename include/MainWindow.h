@@ -33,37 +33,67 @@ private slots:
     void onSortStudents();
     void onSearchStudent();
 
+    // User slots
+    void onAddUser();
+
     // Course slots
     void onSortCourses();
+    void onSortCoursesByEnrollment();
+    void onEnrollStudent();
 
     // Prerequisite slots
     void onFindPrerequisites();
     void onCheckCycles();
 
+    // Session slots
+    void onLogout();
+
 private:
     // Backend
     CollegeSystem system;
     QString currentRole;
+    int loggedInStudentId;
 
-    // Login
+    // Login & UI
     bool showLoginDialog();
+    void setupMainUI();
 
     // Tab creation
+    QWidget* createUsersTab();
     QWidget* createDepartmentsTab();
     QWidget* createStudentsTab();
     QWidget* createCoursesTab();
     QWidget* createPrerequisitesTab();
+    QWidget* createMyCoursesTab();
+    QWidget* createAcademicHistoryTab();
 
     // Table refresh
+    void refreshUsersTable();
     void refreshDepartmentsTable();
     void refreshStudentsTable();
     void refreshCoursesTable();
+    void refreshMyCoursesTable();
+    void refreshAcademicHistoryTable();
+
+    // Course view slot
+    void onViewEnrolledStudents();
+    void onDropCourse();
 
     // Styling
     void applyStyleSheet();
 
     // Widgets
     QTabWidget *tabWidget;
+
+    // Users tab
+    QTableWidget *usersTable;
+
+    // My Courses tab
+    QTableWidget *myCoursesTable;
+    
+    // Academic History tab
+    QTableWidget *academicHistoryTable;
+    QLabel *myCreditsLabel;
 
     // Departments tab
     QTableWidget *deptTable;

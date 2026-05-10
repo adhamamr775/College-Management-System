@@ -15,8 +15,9 @@ set(BACKEND_SOURCES
     src/CollegeSystem.cpp
     src/Department.cpp
     src/Course.cpp
-    src/Student.cpp
     src/User.cpp
+    src/Admin.cpp
+    src/Student.cpp
     src/Instructor.cpp
     src/PrerequisiteGraph.cpp
 )

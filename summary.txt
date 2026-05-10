@@ -1,0 +1,141 @@
+How to run code:
+# 1. Configure CMake
+cmake -S . -B build
+
+# 2. Build both targets
+cmake --build build
+
+# 3. Run console version
+./build/cms_console
+
+# 4. Run GUI version
+./build/cms_gui
+
+==================================================
+Login Credentials
+==================================================
+Admins
+Username: admin
+Password: admin
+
+Instructors
+Username: prof_smith
+Password: pass
+Department: CS
+
+Username: prof_jones
+Password: pass
+Department: MATH
+
+Students
+Username: alice
+Password: pass1
+GPA: 3.8
+Department: CS
+
+Username: bob
+Password: pass2
+GPA: 3.2
+Department: BUS
+
+Username: charlie
+Password: pass3
+GPA: 3.5
+Department: IT
+
+Username: diana
+Password: pass4
+GPA: 3.9
+Department: AI
+
+Username: eve
+Password: pass5
+GPA: 2.8
+Department: CS
+
+==================================================
+FILE AND CLASS EXPLANATION
+==================================================
+
+Below is a breakdown of every core file and class in the project, explaining what they do and how they fit into the overall architecture.
+
+--------------------------------------------------
+1. Core Data Models (The Building Blocks)
+--------------------------------------------------
+These files define the basic objects that the system manages.
+
+- User.h / User.cpp
+  * Class: `User`
+  * Role: This is an abstract base class. It holds the core authentication data (`username`, `password`, `role`) common to everyone in the system. Because it relies on a pure virtual function (`display()`), you cannot create a raw User; you must create a specific subclass (Admin, Instructor, or Student).
+
+- Admin.h / Admin.cpp
+  * Class: `Admin` (inherits from `User`)
+  * Role: A specialized user with the "ADMIN" role. Used for top-level system access.
+
+- Instructor.h / Instructor.cpp
+  * Class: `Instructor` (inherits from `User`)
+  * Role: Adds specific fields for staff, such as `id`, `name`, and `departmentCode`.
+
+- Student.h / Student.cpp
+  * Class: `Student` (inherits from `User`)
+  * Role: Adds detailed academic fields, such as `id`, `name`, `gpa`, `year`, `phone`, `departmentCode`, and a history of `passedCourses`.
+
+- Course.h / Course.cpp
+  * Class: `Course`
+  * Role: Represents an academic class (e.g., CS101). It stores the `capacity`, `creditHours`, and a vector of `enrolledStudents`. It contains logic to enforce capacity limits and manage student drops.
+
+- Department.h / Department.cpp
+  * Class: `Department`
+  * Role: A data structure holding the department `code` (e.g., "CS") and full `name` (e.g., "Computer Science").
+
+--------------------------------------------------
+2. Advanced Data Management & Relationships
+--------------------------------------------------
+These files handle complex calculations, data organization, and relationships between entities.
+
+- PrerequisiteGraph.h / PrerequisiteGraph.cpp
+  * Class: `PrerequisiteGraph`
+  * Role: Implements a dependency mapping system using an adjacency list. It models which courses are required to take other courses. 
+  * Key Logic: Uses a dependency resolution engine to map out and list all required prerequisites for a specific course, and includes an internal validation routine to detect cyclical dependencies (ensuring a course doesn't accidentally require itself).
+
+- SortStrategies.h
+  * Classes: `BubbleSortStrategy`, `MergeSortStrategy`, `SelectionSortStrategy`
+  * Role: Provides modular data organization routines to sort data views in the UI. By isolating these routines into their own classes, the system's architecture is cleaner and easier to extend. Used to organize Courses by capacity/enrollment, Departments alphabetically, and Students by GPA.
+
+--------------------------------------------------
+3. The Backend Controller
+--------------------------------------------------
+This file bridges the gap between the raw data and the user interface.
+
+- CollegeSystem.h / CollegeSystem.cpp
+  * Class: `CollegeSystem`
+  * Role: This is the central "brain" of the application. It holds all the lists of the actual data (`vector<Student>`, `vector<Course>`, etc.) and manages the `PrerequisiteGraph`.
+  * Key Responsibilities:
+    - Business Logic: Contains the `enrollStudentInCourse()` function, which calculates a student's total credit hours, blocks them from enrolling if it exceeds their GPA-based limit, and verifies they have completed all necessary prerequisites.
+    - Search & Lookup: Implements optimized search algorithms to quickly locate Students by ID or Departments by name.
+    - Initialization: Contains `initializeData()`, which seeds the database with mock users, courses, and prerequisite mappings when the program starts.
+
+--------------------------------------------------
+4. The Graphical User Interface (GUI)
+--------------------------------------------------
+These files render the application on the screen.
+
+- MainWindow.h / MainWindow.cpp
+  * Class: `MainWindow` (inherits from `QMainWindow`)
+  * Role: Handles everything the user sees and interacts with in the Qt6 application.
+  * Key Responsibilities:
+    - Session Management: Contains `showLoginDialog()` to authenticate users, and `onLogout()` to safely reset the session.
+    - Role-Based UI: Checks `currentRole` to enforce security boundaries. For example, hiding the "Users" and "Students" tabs from standard Student accounts, and only showing the "My Courses" dashboard.
+    - Dynamic Forms: Contains the logic for the "Add User" dialog, dynamically hiding and showing input fields based on whether an Admin is creating a Student, Instructor, or Admin.
+    - Event Handling: Connects button clicks to backend `CollegeSystem` functions (e.g., triggering data sorting or course enrollment).
+
+--------------------------------------------------
+5. Application Entry Points
+--------------------------------------------------
+These files contain the standard `int main()` functions required to start a C++ program.
+
+- main.cpp
+  * Role: The entry point for the terminal-only (console) version of the application. Used for testing the backend logic without rendering graphics.
+
+- gui_main.cpp
+  * Role: The entry point for the Qt6 GUI application. It creates the `QApplication` instance, instantiates the `MainWindow`, and starts the main event loop (`app.exec()`), keeping the window open until the user exits.

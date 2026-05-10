@@ -142,6 +142,8 @@ CMakeFiles/cms_gui.dir/src/CollegeSystem.cpp.o: \
  /usr/include/c++/15/bits/basic_ios.tcc \
  /usr/include/c++/15/bits/ostream.tcc /usr/include/c++/15/istream \
  /usr/include/c++/15/bits/istream.tcc \
+ /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/Instructor.h \
+ /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/Admin.h \
  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/SortStrategies.h \
  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/../include/PrerequisiteGraph.h \
  /usr/include/c++/15/unordered_map \

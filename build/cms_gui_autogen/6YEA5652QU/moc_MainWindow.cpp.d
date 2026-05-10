@@ -1,8 +1,10 @@
 /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/cms_gui_autogen/6YEA5652QU/moc_MainWindow.cpp: /home/adham/Documents/Study/CSE112/CMS/College-Management-System/include/MainWindow.h \
   /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/cms_gui_autogen/moc_predefs.h \
+  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/include/Admin.h \
   /home/adham/Documents/Study/CSE112/CMS/College-Management-System/include/CollegeSystem.h \
   /home/adham/Documents/Study/CSE112/CMS/College-Management-System/include/Course.h \
   /home/adham/Documents/Study/CSE112/CMS/College-Management-System/include/Department.h \
+  /home/adham/Documents/Study/CSE112/CMS/College-Management-System/include/Instructor.h \
   /home/adham/Documents/Study/CSE112/CMS/College-Management-System/include/PrerequisiteGraph.h \
   /home/adham/Documents/Study/CSE112/CMS/College-Management-System/include/SortStrategies.h \
   /home/adham/Documents/Study/CSE112/CMS/College-Management-System/include/Student.h \

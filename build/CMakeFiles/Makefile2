@@ -93,12 +93,12 @@ CMakeFiles/cms_console.dir/all: CMakeFiles/cms_console_autogen_timestamp_deps.di
 CMakeFiles/cms_console.dir/all: CMakeFiles/cms_console_autogen.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_console.dir/build.make CMakeFiles/cms_console.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_console.dir/build.make CMakeFiles/cms_console.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target cms_console"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Built target cms_console"
 .PHONY : CMakeFiles/cms_console.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/cms_console.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles 13
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/cms_console.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles 0
 .PHONY : CMakeFiles/cms_console.dir/rule
@@ -110,7 +110,7 @@ cms_console: CMakeFiles/cms_console.dir/rule
 # codegen rule for target.
 CMakeFiles/cms_console.dir/codegen: CMakeFiles/cms_console_autogen_timestamp_deps.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_console.dir/build.make CMakeFiles/cms_console.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Finished codegen for target cms_console"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Finished codegen for target cms_console"
 .PHONY : CMakeFiles/cms_console.dir/codegen
 
 # clean rule for target.
@@ -126,12 +126,12 @@ CMakeFiles/cms_gui.dir/all: CMakeFiles/cms_gui_autogen_timestamp_deps.dir/all
 CMakeFiles/cms_gui.dir/all: CMakeFiles/cms_gui_autogen.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui.dir/build.make CMakeFiles/cms_gui.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui.dir/build.make CMakeFiles/cms_gui.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=13,14,15,16,17,18,19,20,21,22,23,24 "Built target cms_gui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=14,15,16,17,18,19,20,21,22,23,24,25,26 "Built target cms_gui"
 .PHONY : CMakeFiles/cms_gui.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/cms_gui.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/cms_gui.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles 0
 .PHONY : CMakeFiles/cms_gui.dir/rule
@@ -143,7 +143,7 @@ cms_gui: CMakeFiles/cms_gui.dir/rule
 # codegen rule for target.
 CMakeFiles/cms_gui.dir/codegen: CMakeFiles/cms_gui_autogen_timestamp_deps.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui.dir/build.make CMakeFiles/cms_gui.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=13,14,15,16,17,18,19,20,21,22,23,24 "Finished codegen for target cms_gui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=14,15,16,17,18,19,20,21,22,23,24,25,26 "Finished codegen for target cms_gui"
 .PHONY : CMakeFiles/cms_gui.dir/codegen
 
 # clean rule for target.
@@ -190,7 +190,7 @@ CMakeFiles/cms_console_autogen_timestamp_deps.dir/clean:
 CMakeFiles/cms_console_autogen.dir/all: CMakeFiles/cms_console_autogen_timestamp_deps.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_console_autogen.dir/build.make CMakeFiles/cms_console_autogen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_console_autogen.dir/build.make CMakeFiles/cms_console_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=12 "Built target cms_console_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=13 "Built target cms_console_autogen"
 .PHONY : CMakeFiles/cms_console_autogen.dir/all
 
 # Build rule for subdir invocation for target.
@@ -207,7 +207,7 @@ cms_console_autogen: CMakeFiles/cms_console_autogen.dir/rule
 # codegen rule for target.
 CMakeFiles/cms_console_autogen.dir/codegen: CMakeFiles/cms_console_autogen_timestamp_deps.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_console_autogen.dir/build.make CMakeFiles/cms_console_autogen.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=12 "Finished codegen for target cms_console_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=13 "Finished codegen for target cms_console_autogen"
 .PHONY : CMakeFiles/cms_console_autogen.dir/codegen
 
 # clean rule for target.
@@ -254,7 +254,7 @@ CMakeFiles/cms_gui_autogen_timestamp_deps.dir/clean:
 CMakeFiles/cms_gui_autogen.dir/all: CMakeFiles/cms_gui_autogen_timestamp_deps.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui_autogen.dir/build.make CMakeFiles/cms_gui_autogen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui_autogen.dir/build.make CMakeFiles/cms_gui_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=25 "Built target cms_gui_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=27 "Built target cms_gui_autogen"
 .PHONY : CMakeFiles/cms_gui_autogen.dir/all
 
 # Build rule for subdir invocation for target.
@@ -271,7 +271,7 @@ cms_gui_autogen: CMakeFiles/cms_gui_autogen.dir/rule
 # codegen rule for target.
 CMakeFiles/cms_gui_autogen.dir/codegen: CMakeFiles/cms_gui_autogen_timestamp_deps.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui_autogen.dir/build.make CMakeFiles/cms_gui_autogen.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=25 "Finished codegen for target cms_gui_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles --progress-num=27 "Finished codegen for target cms_gui_autogen"
 .PHONY : CMakeFiles/cms_gui_autogen.dir/codegen
 
 # clean rule for target.

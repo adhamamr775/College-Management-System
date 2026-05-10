@@ -31,12 +31,12 @@ int main() {
 
     // Sort students by GPA (Selection Sort) and display
     system.sortStudentsByGPA();
-    cout << "=== Students (Sorted by GPA - Selection Sort) ===" << endl;
+    cout << "=== Students (Sorted by GPA) ===" << endl;
     system.displayStudents();
     cout << endl;
 
     // Binary Search for department by name
-    cout << "=== Binary Search ===" << endl;
+    cout << "=== Search ===" << endl;
     int deptIndex = system.binarySearchDepartment("Computer Science");
     if (deptIndex != -1) {
         cout << "Department 'Computer Science' found at index " << deptIndex << endl;
@@ -72,15 +72,15 @@ int main() {
     system.displayGraph();
     cout << endl;
 
-    // BFS: Show all prerequisites for CS401
-    cout << "=== BFS Prerequisite Lookup ===" << endl;
+    // Show all prerequisites for CS401
+    cout << "=== Prerequisite Lookup ===" << endl;
     system.displayPrerequisites("CS401");
     system.displayPrerequisites("CS301");
     system.displayPrerequisites("CS101");
     cout << endl;
 
     // Cycle detection
-    cout << "=== Cycle Detection (DFS) ===" << endl;
+    cout << "=== Cycle Detection ===" << endl;
     if (system.checkForCycles()) {
         cout << "WARNING: Cycle detected in prerequisites!" << endl;
     }

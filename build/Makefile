@@ -242,6 +242,33 @@ cms_gui_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui.dir/build.make CMakeFiles/cms_gui.dir/cms_gui_autogen/mocs_compilation.cpp.s
 .PHONY : cms_gui_autogen/mocs_compilation.cpp.s
 
+src/Admin.o: src/Admin.cpp.o
+.PHONY : src/Admin.o
+
+# target to build an object file
+src/Admin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_console.dir/build.make CMakeFiles/cms_console.dir/src/Admin.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui.dir/build.make CMakeFiles/cms_gui.dir/src/Admin.cpp.o
+.PHONY : src/Admin.cpp.o
+
+src/Admin.i: src/Admin.cpp.i
+.PHONY : src/Admin.i
+
+# target to preprocess a source file
+src/Admin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_console.dir/build.make CMakeFiles/cms_console.dir/src/Admin.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui.dir/build.make CMakeFiles/cms_gui.dir/src/Admin.cpp.i
+.PHONY : src/Admin.cpp.i
+
+src/Admin.s: src/Admin.cpp.s
+.PHONY : src/Admin.s
+
+# target to generate assembly for a file
+src/Admin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_console.dir/build.make CMakeFiles/cms_console.dir/src/Admin.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cms_gui.dir/build.make CMakeFiles/cms_gui.dir/src/Admin.cpp.s
+.PHONY : src/Admin.cpp.s
+
 src/CollegeSystem.o: src/CollegeSystem.cpp.o
 .PHONY : src/CollegeSystem.o
 
@@ -523,6 +550,9 @@ help:
 	@echo "... cms_gui_autogen/mocs_compilation.o"
 	@echo "... cms_gui_autogen/mocs_compilation.i"
 	@echo "... cms_gui_autogen/mocs_compilation.s"
+	@echo "... src/Admin.o"
+	@echo "... src/Admin.i"
+	@echo "... src/Admin.s"
 	@echo "... src/CollegeSystem.o"
 	@echo "... src/CollegeSystem.i"
 	@echo "... src/CollegeSystem.s"

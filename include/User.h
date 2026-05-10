@@ -27,6 +27,6 @@ public:
     bool checkPassword(string pass) const;
 
     string getRole() const;
-
     string getUsername() const;
+    string getPassword() const;
 };

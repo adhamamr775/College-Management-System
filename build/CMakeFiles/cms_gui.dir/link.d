@@ -8,8 +8,9 @@ cms_gui: \
   CMakeFiles/cms_gui.dir/src/CollegeSystem.cpp.o \
   CMakeFiles/cms_gui.dir/src/Department.cpp.o \
   CMakeFiles/cms_gui.dir/src/Course.cpp.o \
-  CMakeFiles/cms_gui.dir/src/Student.cpp.o \
   CMakeFiles/cms_gui.dir/src/User.cpp.o \
+  CMakeFiles/cms_gui.dir/src/Admin.cpp.o \
+  CMakeFiles/cms_gui.dir/src/Student.cpp.o \
   CMakeFiles/cms_gui.dir/src/Instructor.cpp.o \
   CMakeFiles/cms_gui.dir/src/PrerequisiteGraph.cpp.o \
   /usr/lib64/libQt6Widgets.so.6.10.3 \
@@ -96,9 +97,11 @@ CMakeFiles/cms_gui.dir/src/Department.cpp.o:
 
 CMakeFiles/cms_gui.dir/src/Course.cpp.o:
 
-CMakeFiles/cms_gui.dir/src/Student.cpp.o:
-
 CMakeFiles/cms_gui.dir/src/User.cpp.o:
+
+CMakeFiles/cms_gui.dir/src/Admin.cpp.o:
+
+CMakeFiles/cms_gui.dir/src/Student.cpp.o:
 
 CMakeFiles/cms_gui.dir/src/Instructor.cpp.o:
 

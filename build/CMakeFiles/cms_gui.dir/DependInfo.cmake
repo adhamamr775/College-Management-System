@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "" "cms_gui_autogen/timestamp" "custom" "cms_gui_autogen/deps"
   "/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/cms_gui_autogen/mocs_compilation.cpp" "CMakeFiles/cms_gui.dir/cms_gui_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/cms_gui.dir/cms_gui_autogen/mocs_compilation.cpp.o.d"
+  "/home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Admin.cpp" "CMakeFiles/cms_gui.dir/src/Admin.cpp.o" "gcc" "CMakeFiles/cms_gui.dir/src/Admin.cpp.o.d"
   "/home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/CollegeSystem.cpp" "CMakeFiles/cms_gui.dir/src/CollegeSystem.cpp.o" "gcc" "CMakeFiles/cms_gui.dir/src/CollegeSystem.cpp.o.d"
   "/home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Course.cpp" "CMakeFiles/cms_gui.dir/src/Course.cpp.o" "gcc" "CMakeFiles/cms_gui.dir/src/Course.cpp.o.d"
   "/home/adham/Documents/Study/CSE112/CMS/College-Management-System/src/Department.cpp" "CMakeFiles/cms_gui.dir/src/Department.cpp.o" "gcc" "CMakeFiles/cms_gui.dir/src/Department.cpp.o.d"
