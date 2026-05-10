@@ -4,6 +4,7 @@
 #include <vector>
 #include "Department.h"
 #include "Course.h"
+#include "Student.h"
 using namespace std;
 
 class BubbleSortStrategy {
@@ -81,6 +82,33 @@ public:
     void sortDepartments(vector<Department>& departments) {
 
         mergeSort(departments, 0, departments.size() - 1);
+    }
+};
+
+class SelectionSortStrategy {
+public:
+
+    void sortStudents(vector<Student>& students) {
+
+        int n = students.size();
+
+        for (int i = 0; i < n - 1; i++) {
+
+            int minIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+
+                if (students[j].gpa < students[minIndex].gpa) {
+                    minIndex = j;
+                }
+            }
+
+            if (minIndex != i) {
+                Student temp = students[i];
+                students[i] = students[minIndex];
+                students[minIndex] = temp;
+            }
+        }
     }
 };
 

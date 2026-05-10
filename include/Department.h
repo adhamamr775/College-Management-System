@@ -10,6 +10,10 @@ public:
     string name;
 
     Department(string c, string n);
+
+    // Getters
+    string getCode() const { return code; }
+    string getName() const { return name; }
 };
 
 #endif

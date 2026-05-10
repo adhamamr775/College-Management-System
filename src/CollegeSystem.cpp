@@ -1,5 +1,6 @@
 #include "../include/CollegeSystem.h"
 #include <iostream>
+#include <algorithm>
 
 // ---- Department Management ----
 
@@ -15,6 +16,23 @@ void CollegeSystem::sortDepartmentsByName() {
 void CollegeSystem::displayDepartments() const {
     for (const Department& d : departments) {
         cout << d.code << " - " << d.name << endl;
+    }
+}
+
+// ---- Student Management ----
+
+void CollegeSystem::addStudent(string user, string pass, int id, string name, float gpa, int year, string phone) {
+    students.push_back(Student(user, pass, id, name, gpa, year, phone));
+}
+
+void CollegeSystem::sortStudentsByGPA() {
+    SelectionSortStrategy sorter;
+    sorter.sortStudents(students);
+}
+
+void CollegeSystem::displayStudents() const {
+    for (const Student& s : students) {
+        cout << s.id << " - " << s.name << " (GPA: " << s.gpa << ")" << endl;
     }
 }
 
@@ -34,6 +52,62 @@ void CollegeSystem::displayCourses() const {
     for (const Course& c : courses) {
         cout << c.code << " - " << c.name << " (Capacity: " << c.capacity << ")" << endl;
     }
+}
+
+// ---- Binary Search ----
+
+int CollegeSystem::binarySearchDepartment(string name) {
+
+    // Sort departments by name first (binary search requires sorted data)
+    sortDepartmentsByName();
+
+    int left = 0;
+    int right = departments.size() - 1;
+
+    while (left <= right) {
+
+        int mid = (left + right) / 2;
+
+        if (departments[mid].name == name) {
+            return mid;
+        }
+        else if (departments[mid].name < name) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
+    }
+
+    return -1; // Not found
+}
+
+int CollegeSystem::binarySearchStudent(int id) {
+
+    // Sort students by ID first (binary search requires sorted data)
+    sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
+        return a.id < b.id;
+    });
+
+    int left = 0;
+    int right = students.size() - 1;
+
+    while (left <= right) {
+
+        int mid = (left + right) / 2;
+
+        if (students[mid].id == id) {
+            return mid;
+        }
+        else if (students[mid].id < id) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
+    }
+
+    return -1; // Not found
 }
 
 // ---- Prerequisite Graph ----
@@ -65,6 +139,24 @@ void CollegeSystem::displayGraph() const {
     prereqGraph.displayGraph();
 }
 
+vector<string> CollegeSystem::getPrerequisitesBFS(const string& courseCode) const {
+    return prereqGraph.getPrerequisitesBFS(courseCode);
+}
+
+// ---- Data Access (for GUI) ----
+
+const vector<Department>& CollegeSystem::getDepartments() const {
+    return departments;
+}
+
+const vector<Student>& CollegeSystem::getStudents() const {
+    return students;
+}
+
+const vector<Course>& CollegeSystem::getCourses() const {
+    return courses;
+}
+
 // ---- Data Initialization ----
 
 void CollegeSystem::initializeData() {
@@ -82,6 +174,13 @@ void CollegeSystem::initializeData() {
     addCourse("MATH101", "Calculus I", 120);
     addCourse("MATH201", "Linear Algebra", 90);
 
+    // Mock Students
+    addStudent("alice", "pass1", 1001, "Alice Johnson", 3.8, 2, "555-0101");
+    addStudent("bob", "pass2", 1002, "Bob Smith", 3.2, 3, "555-0102");
+    addStudent("charlie", "pass3", 1003, "Charlie Brown", 3.5, 1, "555-0103");
+    addStudent("diana", "pass4", 1004, "Diana Prince", 3.9, 4, "555-0104");
+    addStudent("eve", "pass5", 1005, "Eve Adams", 2.8, 2, "555-0105");
+
     // Mock Prerequisites
     // CS201 requires CS101
     addPrerequisite("CS201", "CS101");
@@ -96,3 +195,4 @@ void CollegeSystem::initializeData() {
     // MATH201 requires MATH101
     addPrerequisite("MATH201", "MATH101");
 }
+

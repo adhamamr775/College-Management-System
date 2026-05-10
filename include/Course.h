@@ -12,6 +12,11 @@ public:
 
     Course();
     Course(string c, string n, int cap);
+
+    // Getters
+    string getCode() const { return code; }
+    string getName() const { return name; }
+    int getCapacity() const { return capacity; }
 };
 
 #endif

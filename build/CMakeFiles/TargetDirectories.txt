@@ -1,0 +1,8 @@
+/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles/cms_console.dir
+/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles/cms_gui.dir
+/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles/edit_cache.dir
+/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles/rebuild_cache.dir
+/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles/cms_console_autogen_timestamp_deps.dir
+/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles/cms_console_autogen.dir
+/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles/cms_gui_autogen_timestamp_deps.dir
+/home/adham/Documents/Study/CSE112/CMS/College-Management-System/build/CMakeFiles/cms_gui_autogen.dir
