@@ -91,7 +91,7 @@ This file bridges the gap between the raw data and the user interface.
   * Role: This is the central "brain" of the application. It holds all the vectors (lists) of the actual data (`vector<Student>`, `vector<Course>`, etc.) and the `PrerequisiteGraph`.
   * Key Responsibilities:
     - Business Logic: Contains the `enrollStudentInCourse()` function, which calculates a student's total credit hours and blocks them from enrolling if it exceeds their GPA-based limit (e.g., GPA < 2.0 = 12 credits max).
-    - Search: Implements Binary Search to quickly find Students by ID or Departments by name.
+    - Search: Implements Binary Search to quickly find Students by ID, and Linear Search for Departments by name.
     - Initialization: Contains `initializeData()`, which generates all the mock users and courses when the program starts.
 
 --------------------------------------------------

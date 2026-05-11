@@ -572,7 +572,7 @@ void MainWindow::onSearchDepartment() {
         return;
     }
 
-    int index = system.binarySearchDepartment(searchName.toStdString());
+    int index = system.linearSearchDepartment(searchName.toStdString());
     refreshDepartmentsTable(); 
 
     if (index >= 0) {

@@ -48,8 +48,8 @@ public:
     void sortCoursesByEnrolledCount();
     void displayCourses() const;
 
-    // Binary search
-    int binarySearchDepartment(string name);
+    // Search
+    int linearSearchDepartment(string name);
     int binarySearchStudent(int id);
 
     // Enrollment

@@ -8,7 +8,7 @@ class User {
 protected:
     string username;
     string password;
-    string role; // "STUDENT" or "INSTRUCTOR"
+    string role; // "STUDENT" or "INSTRUCTOR" or "ADMIN"
 
 public:
     // Default Constructor

@@ -35,16 +35,16 @@ int main() {
     system.displayStudents();
     cout << endl;
 
-    // Binary Search for department by name
+    // Linear Search for department by name
     cout << "=== Search ===" << endl;
-    int deptIndex = system.binarySearchDepartment("Computer Science");
+    int deptIndex = system.linearSearchDepartment("Computer Science");
     if (deptIndex != -1) {
         cout << "Department 'Computer Science' found at index " << deptIndex << endl;
     } else {
         cout << "Department 'Computer Science' not found" << endl;
     }
 
-    deptIndex = system.binarySearchDepartment("Physics");
+    deptIndex = system.linearSearchDepartment("Physics");
     if (deptIndex != -1) {
         cout << "Department 'Physics' found at index " << deptIndex << endl;
     } else {

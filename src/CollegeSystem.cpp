@@ -92,31 +92,14 @@ void CollegeSystem::displayCourses() const {
     }
 }
 
-// ---- Binary Search ----
+// ---- Search ----
 
-int CollegeSystem::binarySearchDepartment(string name) {
-
-    // Sort departments by name first (binary search requires sorted data)
-    sortDepartmentsByName();
-
-    int left = 0;
-    int right = departments.size() - 1;
-
-    while (left <= right) {
-
-        int mid = (left + right) / 2;
-
-        if (departments[mid].name == name) {
-            return mid;
-        }
-        else if (departments[mid].name < name) {
-            left = mid + 1;
-        }
-        else {
-            right = mid - 1;
+int CollegeSystem::linearSearchDepartment(string name) {
+    for (size_t i = 0; i < departments.size(); ++i) {
+        if (departments[i].name == name) {
+            return i;
         }
     }
-
     return -1; // Not found
 }
 

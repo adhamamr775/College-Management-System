@@ -7,7 +7,7 @@ A robust, Object-Oriented desktop application built with **C++** and the **Qt Fr
 *   **Role-Based Access Control (RBAC):** Secure login system distinguishing between `Instructors/Admins` and `Students`, ensuring users only access authorized dashboards.
 *   **Entity Management:** Add, view, and manage Departments, Courses, and Students.
 *   **Dynamic Sorting:** Sort entities using three distinct algorithms, cleanly implemented via the **Strategy Design Pattern** (SOLID Principles).
-*   **High-Speed Searching:** Quickly locate students by ID or departments by Name using Binary Search.
+*   **High-Speed Searching:** Quickly locate students by ID using Binary Search, and departments by Name using Linear Search.
 *   **Prerequisite Graphing:** View all direct and indirect course prerequisites instantly.
 *   **Automated Cycle Detection:** Prevents admins from creating impossible prerequisite loops (e.g., Course A requires Course B, which requires Course A).
 *   **Interactive GUI:** A clean, user-friendly graphical interface built with Qt.
@@ -26,7 +26,8 @@ This project heavily utilizes standard C++ containers and custom algorithmic imp
 *   **Selection Sort:** $O(n^2)$ - Used to sort Students by GPA.
 *   **Bubble Sort:** $O(n^2)$ - Used to sort Courses by Enrollment capacity.
 *   **Merge Sort:** $O(n \log n)$ - Used to sort Departments alphabetically by Name.
-*   **Binary Search:** $O(\log n)$ - Used to retrieve specific Students or Departments (includes auto-resorting fallback if the primary vector is currently sorted by a different key).
+*   **Linear Search:** $O(n)$ - Used to retrieve specific Departments.
+*   **Binary Search:** $O(\log n)$ - Used to retrieve specific Students (includes auto-resorting fallback if the primary vector is currently sorted by a different key).
 *   **Breadth-First Search (BFS):** Traverses the prerequisite graph layer-by-layer to display all required courses to the user.
 *   **Depth-First Search (DFS):** Explores graph paths deeply to detect "back-edges," successfully identifying and preventing prerequisite cycles.
 
@@ -53,9 +54,9 @@ Details: Similar to Merge Sort, implement the general Selection Sort logic insid
 4. Bubble Sort courses by number
 Where: include/SortStrategies.h & src/CollegeSystem.cpp
 Details: Implement the Bubble Sort algorithm in SortStrategies.h and apply it to the list of Course objects inside CollegeSystem.cpp.
-5. Binary search for department by name or student by id
+5. Linear search for department by name or binary search for student by id
 Where: src/CollegeSystem.cpp
-Details: Because Binary Search relies on the collection being sorted first, implement the binarySearchDepartment(string name) and binarySearchStudent(int id) methods directly inside the CollegeSystem class. It manages the collections of data, making it the perfect place to query them.
+Details: Implement the linearSearchDepartment(string name) and binarySearchStudent(int id) methods directly inside the CollegeSystem class. It manages the collections of data, making it the perfect place to query them.
 6. Graph + BFS + Data initialization
 Where:
 Graph + BFS: include/PrerequisiteGraph.h & src/PrerequisiteGraph.cpp
