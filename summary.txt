@@ -14,45 +14,21 @@ cmake --build build
 ==================================================
 Login Credentials
 ==================================================
-Admins
-Username: admin
-Password: admin
+Admins Username: admin Password: admin
 
-Instructors
-Username: prof_smith
-Password: pass
-Department: CS
+Instructors Username: prof_smith Password: pass Department: CS
 
-Username: prof_jones
-Password: pass
-Department: MATH
+Username: prof_jones Password: pass Department: MATH
 
-Students
-Username: alice
-Password: pass1
-GPA: 3.8
-Department: CS
+Students Username: alice Password: pass1 GPA: 3.8 Department: CS
 
-Username: bob
-Password: pass2
-GPA: 3.2
-Department: BUS
+Username: bob Password: pass2 GPA: 3.2 Department: BUS
 
-Username: charlie
-Password: pass3
-GPA: 3.5
-Department: IT
+Username: charlie Password: pass3 GPA: 3.5 Department: IT
 
-Username: diana
-Password: pass4
-GPA: 3.9
-Department: AI
+Username: diana Password: pass4 GPA: 3.9 Department: AI
 
-Username: eve
-Password: pass5
-GPA: 2.8
-Department: CS
-
+Username: eve Password: pass5 GPA: 2.8 Department: CS
 ==================================================
 FILE AND CLASS EXPLANATION
 ==================================================
@@ -66,7 +42,7 @@ These files define the basic objects that the system manages.
 
 - User.h / User.cpp
   * Class: `User`
-  * Role: This is an abstract base class. It holds the core authentication data (`username`, `password`, `role`) common to everyone in the system. Because it relies on a pure virtual function (`display()`), you cannot create a raw User; you must create a specific subclass (Admin, Instructor, or Student).
+  * Role: This is an abstract base class. It holds the core authentication data (`username`, `password`, `role`) common to everyone in the system. Because it has a pure virtual function (`display()`), you cannot create a raw User; you must create a specific subclass (Admin, Instructor, or Student).
 
 - Admin.h / Admin.cpp
   * Class: `Admin` (inherits from `User`)
@@ -78,29 +54,32 @@ These files define the basic objects that the system manages.
 
 - Student.h / Student.cpp
   * Class: `Student` (inherits from `User`)
-  * Role: Adds detailed academic fields, such as `id`, `name`, `gpa`, `year`, `phone`, `departmentCode`, and a history of `passedCourses`.
+  * Role: Adds detailed academic fields, such as `id`, `name`, `gpa`, `year`, `phone`, and `departmentCode`.
 
 - Course.h / Course.cpp
   * Class: `Course`
-  * Role: Represents an academic class (e.g., CS101). It stores the `capacity`, `creditHours`, and a vector of `enrolledStudents`. It contains logic to enforce capacity limits and manage student drops.
+  * Role: Represents an academic class (e.g., CS101). It stores the `capacity`, `creditHours`, and importantly, a vector of `enrolledStudents` (storing student IDs). It contains basic logic to prevent enrolling if the course is at max capacity.
 
 - Department.h / Department.cpp
   * Class: `Department`
-  * Role: A data structure holding the department `code` (e.g., "CS") and full `name` (e.g., "Computer Science").
+  * Role: A simple data structure holding the department `code` (e.g., "CS") and full `name` (e.g., "Computer Science").
 
 --------------------------------------------------
-2. Advanced Data Management & Relationships
+2. Advanced Data Structures & Algorithms
 --------------------------------------------------
-These files handle complex calculations, data organization, and relationships between entities.
+These files handle complex calculations, sorting, and relationships between data.
 
 - PrerequisiteGraph.h / PrerequisiteGraph.cpp
   * Class: `PrerequisiteGraph`
-  * Role: Implements a dependency mapping system using an adjacency list. It models which courses are required to take other courses. 
-  * Key Logic: Uses a dependency resolution engine to map out and list all required prerequisites for a specific course, and includes an internal validation routine to detect cyclical dependencies (ensuring a course doesn't accidentally require itself).
+  * Role: Implements a Directed Graph using an adjacency list (an unordered_map). It models which courses are required to take other courses. 
+  * Key Algorithms: Uses Breadth-First Search (BFS) to find and list all prerequisites for a specific course, and Depth-First Search (DFS) to detect cycles (ensuring a course doesn't accidentally require itself).
 
 - SortStrategies.h
   * Classes: `BubbleSortStrategy`, `MergeSortStrategy`, `SelectionSortStrategy`
-  * Role: Provides modular data organization routines to sort data views in the UI. By isolating these routines into their own classes, the system's architecture is cleaner and easier to extend. Used to organize Courses by capacity/enrollment, Departments alphabetically, and Students by GPA.
+  * Role: Implements the "Strategy Design Pattern" for sorting. By isolating sorting algorithms into their own classes, the system is cleaner and easier to maintain.
+  * Bubble Sort: Used for sorting Courses.
+  * Merge Sort: Used for sorting Departments alphabetically (fast O(n log n) time).
+  * Selection Sort: Used for sorting Students by GPA.
 
 --------------------------------------------------
 3. The Backend Controller
@@ -109,11 +88,11 @@ This file bridges the gap between the raw data and the user interface.
 
 - CollegeSystem.h / CollegeSystem.cpp
   * Class: `CollegeSystem`
-  * Role: This is the central "brain" of the application. It holds all the lists of the actual data (`vector<Student>`, `vector<Course>`, etc.) and manages the `PrerequisiteGraph`.
+  * Role: This is the central "brain" of the application. It holds all the vectors (lists) of the actual data (`vector<Student>`, `vector<Course>`, etc.) and the `PrerequisiteGraph`.
   * Key Responsibilities:
-    - Business Logic: Contains the `enrollStudentInCourse()` function, which calculates a student's total credit hours, blocks them from enrolling if it exceeds their GPA-based limit, and verifies they have completed all necessary prerequisites.
-    - Search & Lookup: Implements optimized search algorithms to quickly locate Students by ID or Departments by name.
-    - Initialization: Contains `initializeData()`, which seeds the database with mock users, courses, and prerequisite mappings when the program starts.
+    - Business Logic: Contains the `enrollStudentInCourse()` function, which calculates a student's total credit hours and blocks them from enrolling if it exceeds their GPA-based limit (e.g., GPA < 2.0 = 12 credits max).
+    - Search: Implements Binary Search to quickly find Students by ID or Departments by name.
+    - Initialization: Contains `initializeData()`, which generates all the mock users and courses when the program starts.
 
 --------------------------------------------------
 4. The Graphical User Interface (GUI)
@@ -122,12 +101,12 @@ These files render the application on the screen.
 
 - MainWindow.h / MainWindow.cpp
   * Class: `MainWindow` (inherits from `QMainWindow`)
-  * Role: Handles everything the user sees and interacts with in the Qt6 application.
+  * Role: Handles everything the user sees and clicks in the Qt6 application.
   * Key Responsibilities:
-    - Session Management: Contains `showLoginDialog()` to authenticate users, and `onLogout()` to safely reset the session.
-    - Role-Based UI: Checks `currentRole` to enforce security boundaries. For example, hiding the "Users" and "Students" tabs from standard Student accounts, and only showing the "My Courses" dashboard.
-    - Dynamic Forms: Contains the logic for the "Add User" dialog, dynamically hiding and showing input fields based on whether an Admin is creating a Student, Instructor, or Admin.
-    - Event Handling: Connects button clicks to backend `CollegeSystem` functions (e.g., triggering data sorting or course enrollment).
+    - Session Management: Contains `showLoginDialog()` to authenticate users, and `onLogout()` to safely destroy and rebuild the UI.
+    - Role-Based UI: Checks `currentRole` to decide whether to render the "Users" tab or hide the "Add User" button.
+    - Dynamic Forms: Contains the logic for the "Add User" dialog, dynamically hiding and showing input fields (like GPA) based on whether an Admin is creating a Student, Instructor, or Admin.
+    - Event Handling: Connects button clicks (Slots) to backend `CollegeSystem` functions (e.g., clicking the sort button triggers the Strategy Pattern sorts).
 
 --------------------------------------------------
 5. Application Entry Points
