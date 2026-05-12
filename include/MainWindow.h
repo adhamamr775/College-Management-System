@@ -31,6 +31,7 @@ private slots:
 
     // Student slots
     void onSortStudents();
+    void onSortStudentsById();
     void onSearchStudent();
 
     // User slots

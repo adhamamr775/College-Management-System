@@ -271,6 +271,11 @@ QWidget* MainWindow::createStudentsTab() {
     connect(sortBtn, &QPushButton::clicked, this, &MainWindow::onSortStudents);
     controlsLayout->addWidget(sortBtn);
 
+    QPushButton *sortByIdBtn = new QPushButton("⬆ Sort by ID");
+    sortByIdBtn->setObjectName("actionBtn");
+    connect(sortByIdBtn, &QPushButton::clicked, this, &MainWindow::onSortStudentsById);
+    controlsLayout->addWidget(sortByIdBtn);
+
     QPushButton *addUserBtn = new QPushButton("➕ Add Student");
     addUserBtn->setObjectName("actionBtn");
     addUserBtn->setStyleSheet("background-color: #0984e3;");
@@ -588,6 +593,11 @@ void MainWindow::onSearchDepartment() {
 
 void MainWindow::onSortStudents() {
     system.sortStudentsByGPA();
+    refreshStudentsTable();
+}
+
+void MainWindow::onSortStudentsById() {
+    system.sortStudentsById();
     refreshStudentsTable();
 }
 

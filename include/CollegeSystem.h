@@ -35,6 +35,7 @@ public:
     // Student management
     void addStudent(string user, string pass, int id, string name, float gpa, int year, string phone, string deptCode = "");
     void sortStudentsByGPA();
+    void sortStudentsById();
     void displayStudents() const;
 
     // Instructor and Admin management

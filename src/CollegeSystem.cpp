@@ -341,3 +341,7 @@ void CollegeSystem::initializeData() {
     addPrerequisite("MATH201", "MATH101");
 }
 
+void CollegeSystem::sortStudentsById() {
+    MergeSortStrategy sorter;
+    sorter.sortStudentsById(students);
+}
